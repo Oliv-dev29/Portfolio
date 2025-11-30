@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@layer base {
+  * {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Boutons professionnels */
+  .btn-primary {
+    @apply px-8 py-4 font-semibold text-white rounded-2xl;
+    background-color: #bc6c25;
+    @apply shadow-xl shadow-[#bc6c25]/20;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:shadow-2xl hover:shadow-[#bc6c25]/40 hover:scale-[1.02] hover:-translate-y-0.5;
+  }
+  
+  .btn-primary:hover {
+    background-color: #a55a1f;
+  }
+
+  .btn-elegant {
+    @apply px-10 py-5 font-bold text-lg rounded-2xl;
+    background-color: #283618;
+    @apply text-white border-2 border-[#606c38];
+    @apply shadow-2xl shadow-[#283618]/30;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:shadow-[#606c38]/50 hover:scale-[1.02] hover:-translate-y-1;
+  }
+  
+  .btn-elegant:hover {
+    background-color: #606c38;
+  }
+
+  .btn-outline {
+    @apply px-8 py-4 font-semibold rounded-2xl;
+    @apply border-2 text-[#283618] bg-white;
+    border-color: #dda15e;
+    @apply transition-all duration-500;
+    @apply hover:scale-[1.02] hover:shadow-xl;
+  }
+  
+  .btn-outline:hover {
+    background-color: #fefae0;
+    border-color: #bc6c25;
+    color: #bc6c25;
+  }
+
+  /* Cartes professionnelles */
+  .card-pro {
+    @apply relative bg-white rounded-3xl;
+    @apply border-2 shadow-xl;
+    border-color: #dda15e;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:-translate-y-2;
+    transform-style: preserve-3d;
+  }
+  
+  .card-pro:hover {
+    border-color: #bc6c25;
+    box-shadow: 0 20px 60px -15px rgba(188, 108, 37, 0.3);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/90 backdrop-blur-xl;
+    @apply border-2 shadow-xl;
+    border-color: #dda15e;
+  }
+  
+  .glass-dark {
+    background-color: rgba(40, 54, 24, 0.95);
+    @apply backdrop-blur-xl;
+    @apply border-2 shadow-2xl;
+    border-color: #606c38;
+  }
+
+  /* Texte accentué */
+  .gradient-text {
+    color: #bc6c25;
+  }
+  
+  .gradient-text-gold {
+    color: #dda15e;
+  }
+
+  /* Badges professionnels */
+  .badge-premium {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full;
+    background-color: #bc6c25;
+    @apply text-white font-bold text-sm tracking-wide;
+    @apply shadow-lg;
+    box-shadow: 0 10px 30px -10px rgba(188, 108, 37, 0.4);
+    @apply transition-all duration-500;
+    @apply hover:scale-105;
+  }
+  
+  .badge-premium:hover {
+    background-color: #a55a1f;
+    box-shadow: 0 15px 40px -10px rgba(188, 108, 37, 0.6);
+  }
+
+  .skill-badge {
+    @apply px-6 py-3 rounded-2xl font-semibold;
+    background-color: #fefae0;
+    @apply border-2;
+    border-color: #dda15e;
+    @apply transition-all duration-500;
+    @apply hover:scale-110 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .skill-badge:hover {
+    background-color: #dda15e;
+    border-color: #bc6c25;
+    @apply text-white;
+  }
+
+  /* Sections */
+  .section-light {
+    background-color: #fefae0;
+  }
+  
+  .section-dark {
+    background-color: #283618;
+    @apply text-white;
+  }
+}
+
+@layer utilities {
+  /* Animations d'entrée */
+  .animate-fadeInUp {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-fadeInDown {
+    animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-fadeInLeft {
+    animation: fadeInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-fadeInRight {
+    animation: fadeInRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-scaleIn {
+    animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Effets de survol premium */
+  .hover-lift-3d {
+    @apply transition-all duration-700 ease-out;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px);
+  }
+  
+  .hover-lift-3d:hover {
+    transform: perspective(1000px) rotateX(-5deg) rotateY(5deg) translateZ(20px);
+    @apply shadow-2xl;
+  }
+
+  /* Effets de lumière */
+  .glow-violet {
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.4);
+  }
+  
+  .glow-pink {
+    box-shadow: 0 0 60px rgba(236, 72, 153, 0.4);
+  }
+  
+  .glow-cyan {
+    box-shadow: 0 0 60px rgba(6, 182, 212, 0.4);
+  }
+
+  /* Bordures animées */
+  .border-gradient {
+    @apply relative;
+  }
+  
+  .border-gradient::before {
+    content: '';
+    @apply absolute inset-0 rounded-3xl p-[2px];
+    @apply bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500;
+    @apply opacity-0 transition-opacity duration-700;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  .border-gradient:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Grilles modernes */
+  .grid-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 20px;
+    gap: 2rem;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.8);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
