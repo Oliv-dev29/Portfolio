@@ -28,17 +28,21 @@ const expandedId = ref(1)
 </script>
 
 <template>
-  <section id="experience" class="py-24 bg-slate-50/50">
+  <section id="experience" class="py-16">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
-      <div class="text-center mb-20">
-        <p class="text-indigo-600 font-semibold tracking-wide uppercase text-base mb-4">
-          Mon parcours
-        </p>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="w-12 h-1 bg-green-500"></div>
+          <p class="text-green-400 font-semibold tracking-wide uppercase text-base">Mon parcours</p>
+          <div class="w-12 h-1 bg-green-500"></div>
+        </div>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
           Expériences professionnelles
         </h2>
-        <p class="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        <p
+          class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
+        >
           Plus de 4 années d'expérience en analyse de données et suivi-évaluation
         </p>
       </div>
@@ -49,26 +53,26 @@ const expandedId = ref(1)
           v-for="exp in experiences"
           :key="exp.id"
           :class="[
-            'relative bg-white rounded-2xl border transition-all duration-500 overflow-hidden',
+            'card-pro relative rounded-2xl transition-all duration-500 overflow-hidden',
             expandedId === exp.id
-              ? 'border-indigo-200 shadow-xl shadow-indigo-500/10'
-              : 'border-slate-200 shadow-sm hover:shadow-md',
+              ? 'border-green-500/50 shadow-xl shadow-green-500/20'
+              : 'hover:shadow-md',
           ]"
         >
           <!-- Gradient bar -->
           <div
-            class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500"
+            class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-emerald-500"
           ></div>
 
           <!-- Header -->
           <button
             @click="expandedId = expandedId === exp.id ? null : exp.id"
-            class="w-full p-6 text-left"
+            class="w-full p-4 sm:p-6 text-left"
           >
-            <div class="flex items-start gap-4">
+            <div class="flex items-start gap-3 sm:gap-4">
               <!-- Company logo placeholder -->
               <div
-                class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl"
+                class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-green-500/30"
               >
                 {{ exp.company.charAt(0) }}
               </div>
@@ -76,20 +80,24 @@ const expandedId = ref(1)
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between gap-4">
                   <div>
-                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+                    <h3
+                      class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2"
+                    >
                       {{ exp.title }}
                     </h3>
-                    <p class="text-indigo-600 font-medium text-lg md:text-xl">{{ exp.company }}</p>
+                    <p class="text-green-400 font-medium text-base sm:text-lg md:text-xl">
+                      {{ exp.company }}
+                    </p>
                   </div>
                   <ChevronRight
                     :class="[
-                      'flex-shrink-0 w-5 h-5 text-slate-400 transition-transform duration-300',
+                      'flex-shrink-0 w-5 h-5 text-gray-400 transition-transform duration-300',
                       expandedId === exp.id ? 'rotate-90' : '',
                     ]"
                   />
                 </div>
 
-                <div class="flex flex-wrap gap-4 mt-4 text-base md:text-lg text-slate-500">
+                <div class="flex flex-wrap gap-4 mt-4 text-base md:text-lg text-gray-400">
                   <span class="flex items-center gap-2">
                     <Calendar :size="18" />
                     {{ exp.period }}
@@ -98,7 +106,9 @@ const expandedId = ref(1)
                     <MapPin :size="18" />
                     {{ exp.location }}
                   </span>
-                  <span class="px-3 py-1 bg-slate-100 rounded-full text-sm md:text-base">
+                  <span
+                    class="px-3 py-1 bg-green-500/20 rounded-full text-sm md:text-base text-green-300"
+                  >
                     {{ exp.duration }}
                   </span>
                 </div>
@@ -113,15 +123,15 @@ const expandedId = ref(1)
               expandedId === exp.id ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0',
             ]"
           >
-            <div class="px-6 pb-6 pt-2 border-t border-slate-100">
-              <p class="text-slate-600 text-lg md:text-xl mb-8 leading-relaxed">
+            <div class="px-6 pb-6 pt-2 border-t border-green-500/30">
+              <p class="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">
                 {{ exp.description }}
               </p>
 
               <!-- Responsibilities -->
               <div class="mb-8">
                 <h4
-                  class="text-base md:text-lg font-semibold text-slate-800 mb-4 uppercase tracking-wide"
+                  class="text-base md:text-lg font-semibold text-white mb-4 uppercase tracking-wide"
                 >
                   Responsabilités
                 </h4>
@@ -129,9 +139,9 @@ const expandedId = ref(1)
                   <li
                     v-for="(item, index) in exp.responsibilities"
                     :key="index"
-                    class="flex items-start gap-3 text-slate-600 text-base md:text-lg"
+                    class="flex items-start gap-3 text-gray-300 text-base md:text-lg"
                   >
-                    <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2"></span>
+                    <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-400 mt-2"></span>
                     {{ item }}
                   </li>
                 </ul>
@@ -140,7 +150,7 @@ const expandedId = ref(1)
               <!-- Tools -->
               <div>
                 <h4
-                  class="text-base md:text-lg font-semibold text-slate-800 mb-4 uppercase tracking-wide"
+                  class="text-base md:text-lg font-semibold text-white mb-4 uppercase tracking-wide"
                 >
                   Outils & Technologies
                 </h4>
@@ -148,7 +158,7 @@ const expandedId = ref(1)
                   <span
                     v-for="tool in exp.tools"
                     :key="tool"
-                    class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-base md:text-lg font-medium"
+                    class="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg text-base md:text-lg font-medium border border-green-500/30"
                   >
                     {{ tool }}
                   </span>
@@ -157,19 +167,6 @@ const expandedId = ref(1)
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Call to action -->
-      <div class="mt-16 text-center">
-        <p class="text-slate-600 mb-4">Intéressé par mon profil ?</p>
-        <a
-          href="#cv"
-          @click.prevent="document.getElementById('cv')?.scrollIntoView({ behavior: 'smooth' })"
-          class="inline-flex items-center gap-2 text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
-        >
-          Télécharger mon CV complet
-          <ExternalLink :size="16" />
-        </a>
       </div>
     </div>
   </section>

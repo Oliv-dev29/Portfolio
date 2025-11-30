@@ -9,42 +9,39 @@ export default {
         body: ['Be Vietnam Pro', 'system-ui', 'sans-serif'],
       },
       colors: {
-        brand: {
-          olive: '#606c38',
-          'dark-olive': '#283618',
-          cream: '#fefae0',
-          sand: '#dda15e',
-          brown: '#bc6c25',
-        },
+        // Palette minimaliste moderne
         primary: {
-          50: '#fefae0',
-          100: '#fcf7d4',
-          200: '#f9eeb0',
-          300: '#e8d8a0',
-          400: '#dda15e',
-          500: '#bc6c25',
-          600: '#a55a1f',
-          700: '#8e4a19',
-          800: '#763d14',
-          900: '#5f3010',
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6', // Bleu électrique principal
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
         },
         accent: {
-          50: '#f3f5eb',
-          100: '#e7ead8',
-          200: '#cfd5b1',
-          300: '#b8c08a',
-          400: '#a0ab63',
-          500: '#606c38',
-          600: '#4d562d',
-          700: '#3a4122',
-          800: '#283618',
-          900: '#151b0c',
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
+          300: '#cbd5e1',
+          400: '#94a3b8',
+          500: '#64748b', // Gris neutre
+          600: '#475569',
+          700: '#334155',
+          800: '#1e293b', // Gris foncé
+          900: '#0f172a',
         },
       },
       animation: {
         gradient: 'gradient 8s linear infinite',
         float: 'float 6s ease-in-out infinite',
         glow: 'glow 2s ease-in-out infinite alternate',
+        'fade-in': 'fadeIn 0.8s ease-out',
+        'slide-up': 'slideUp 0.8s ease-out',
+        'zoom-in': 'zoomIn 0.5s ease-out',
       },
       keyframes: {
         gradient: {
@@ -64,6 +61,18 @@ export default {
         glow: {
           '0%': { opacity: '0.5' },
           '100%': { opacity: '1' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        zoomIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
         },
       },
     },

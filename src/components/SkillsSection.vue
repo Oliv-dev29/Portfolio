@@ -97,69 +97,85 @@ onMounted(() => {
 </script>
 
 <template>
-  <section
-    id="skills"
-    class="relative py-32 px-6 sm:px-12 lg:px-20 overflow-hidden"
-    style="background-color: #fefae0"
-  >
+  <section id="skills" class="relative py-16 px-6 sm:px-8 lg:px-12 overflow-hidden">
     <div class="relative w-full max-w-7xl mx-auto">
-      <!-- En-tête de section -->
-      <div :class="['text-center mb-24', isVisible ? 'animate-fadeInDown' : 'opacity-0']">
+      <!-- En-tête de section avec thème sombre -->
+      <div :class="['text-center mb-12', isVisible ? 'animate-slide-up' : 'opacity-0']">
+        <div class="flex items-center justify-center gap-3 mb-12">
+          <div class="w-12 h-1 bg-blue-500"></div>
+          <span class="text-sm font-semibold text-blue-400 uppercase tracking-wider"
+            >MES COMPÉTENCES</span
+          >
+          <div class="w-12 h-1 bg-blue-500"></div>
+        </div>
+
         <h2
-          class="font-display text-6xl sm:text-7xl md:text-8xl font-black mb-8 leading-tight tracking-tighter"
-          style="color: #283618"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 text-white"
         >
-          Compétences
+          À votre service !
         </h2>
 
-        <p class="text-xl sm:text-2xl max-w-3xl mx-auto leading-relaxed" style="color: #606c38">
-          Technologies maîtrisées pour créer des solutions modernes et performantes
+        <p
+          class="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
+        >
+          Je vous invite à consulter le panel non exhaustif de mes compétences ci-dessous
         </p>
       </div>
 
       <!-- Data Science & IA -->
       <div
-        :class="['mb-24', isVisible ? 'animate-fadeInUp' : 'opacity-0']"
-        style="animation-delay: 0.2s"
+        :class="['mb-12', isVisible ? 'animate-fade-in' : 'opacity-0']"
+        style="animation-delay: 0.1s"
       >
-        <div class="flex items-center justify-center gap-4 mb-12">
-          <div class="h-px flex-1 max-w-32" style="background-color: #dda15e"></div>
+        <div class="flex items-center gap-4 mb-10">
           <div
-            class="flex items-center gap-3 px-6 py-3 rounded-full border-2"
-            style="background-color: rgba(188, 108, 37, 0.1); border-color: #bc6c25"
+            class="p-3 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl shadow-lg shadow-cyan-500/30"
           >
-            <Database :size="24" style="color: #bc6c25" />
-            <h3 class="text-2xl font-black" style="color: #283618">
+            <Database :size="28" class="text-white" />
+          </div>
+          <div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white">
               Data Science & Intelligence Artificielle
             </h3>
+            <p class="text-sm sm:text-base text-gray-400">Analyse de données et machine learning</p>
           </div>
-          <div class="h-px flex-1 max-w-32" style="background-color: #dda15e"></div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-          <div
-            v-for="(tech, index) in dataTechs"
-            :key="tech.name"
-            :class="['group relative', isVisible ? 'animate-scaleIn' : 'opacity-0']"
-            :style="`animation-delay: ${0.3 + index * 0.05}s`"
-          >
+        <div class="overflow-x-auto pb-4 scrollbar-hide">
+          <div class="flex gap-5 min-w-max animate-scroll-x">
             <div
-              class="relative p-8 rounded-2xl bg-white border-2 shadow-lg transition-all duration-300"
-              style="border-color: #dda15e"
-              @mouseenter="$event.currentTarget.style.borderColor = '#bc6c25'"
-              @mouseleave="$event.currentTarget.style.borderColor = '#dda15e'"
+              v-for="(tech, index) in dataTechs"
+              :key="tech.name"
+              :class="[
+                'group perspective flex-shrink-0 w-40',
+                isVisible ? 'animate-zoom-in' : 'opacity-0',
+              ]"
+              :style="`animation-delay: ${0.2 + index * 0.03}s`"
             >
-              <div class="flex items-center justify-center mb-4">
-                <div
-                  class="relative w-16 h-16 flex items-center justify-center rounded-xl bg-white"
-                >
-                  <img :src="tech.icon" :alt="tech.name" class="w-10 h-10 object-contain" />
-                </div>
-              </div>
+              <div
+                class="card-pro p-6 text-center cursor-pointer transition-all duration-500 transform-style-3d group-hover:rotate-y-180"
+              >
+                <!-- Face avant -->
+                <div class="backface-hidden">
+                  <div class="flex items-center justify-center mb-4">
+                    <div class="relative w-14 h-14 flex items-center justify-center">
+                      <img :src="tech.icon" :alt="tech.name" class="w-12 h-12 object-contain" />
+                    </div>
+                  </div>
 
-              <div class="text-center">
-                <div class="font-bold" style="color: #283618">
-                  {{ tech.name }}
+                  <div class="text-sm font-semibold text-gray-300">
+                    {{ tech.name }}
+                  </div>
+                </div>
+
+                <!-- Face arrière -->
+                <div
+                  class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm rounded-2xl p-6 flex items-center justify-center border border-cyan-500/50"
+                >
+                  <div class="text-center">
+                    <div class="text-cyan-400 font-bold text-sm mb-2">{{ tech.name }}</div>
+                    <div class="text-xs text-gray-400">Data & IA</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -169,45 +185,51 @@ onMounted(() => {
 
       <!-- Développement Web -->
       <div
-        :class="['mb-24', isVisible ? 'animate-fadeInUp' : 'opacity-0']"
-        style="animation-delay: 0.4s"
+        :class="['mb-20', isVisible ? 'animate-fade-in' : 'opacity-0']"
+        style="animation-delay: 0.2s"
       >
-        <div class="flex items-center justify-center gap-4 mb-12">
-          <div class="h-px flex-1 max-w-32" style="background-color: #dda15e"></div>
+        <div class="flex items-center gap-4 mb-10">
           <div
-            class="flex items-center gap-3 px-6 py-3 rounded-full border-2"
-            style="background-color: rgba(188, 108, 37, 0.1); border-color: #bc6c25"
+            class="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg shadow-blue-500/30"
           >
-            <Code2 :size="24" style="color: #bc6c25" />
-            <h3 class="text-2xl font-black" style="color: #283618">Développement Web</h3>
+            <Code2 :size="28" class="text-white" />
           </div>
-          <div class="h-px flex-1 max-w-32" style="background-color: #dda15e"></div>
+          <div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white">Développement Web</h3>
+            <p class="text-sm sm:text-base text-gray-400">Frameworks et technologies modernes</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-4xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
           <div
             v-for="(tech, index) in webTechs"
             :key="tech.name"
-            :class="['group relative', isVisible ? 'animate-scaleIn' : 'opacity-0']"
-            :style="`animation-delay: ${0.5 + index * 0.1}s`"
+            :class="['group perspective', isVisible ? 'animate-zoom-in' : 'opacity-0']"
+            :style="`animation-delay: ${0.3 + index * 0.05}s`"
           >
             <div
-              class="relative p-10 rounded-2xl bg-white border-2 shadow-lg transition-all duration-300"
-              style="border-color: #dda15e"
-              @mouseenter="$event.currentTarget.style.borderColor = '#bc6c25'"
-              @mouseleave="$event.currentTarget.style.borderColor = '#dda15e'"
+              class="card-pro p-8 text-center cursor-pointer transition-all duration-500 transform-style-3d group-hover:rotate-y-180"
             >
-              <div class="flex items-center justify-center mb-5">
-                <div
-                  class="relative w-20 h-20 flex items-center justify-center rounded-xl bg-white"
-                >
-                  <img :src="tech.icon" :alt="tech.name" class="w-12 h-12 object-contain" />
+              <!-- Face avant -->
+              <div class="backface-hidden">
+                <div class="flex items-center justify-center mb-5">
+                  <div class="relative w-16 h-16 flex items-center justify-center">
+                    <img :src="tech.icon" :alt="tech.name" class="w-14 h-14 object-contain" />
+                  </div>
+                </div>
+
+                <div class="text-base font-semibold text-gray-300">
+                  {{ tech.name }}
                 </div>
               </div>
 
-              <div class="text-center">
-                <div class="font-bold text-lg" style="color: #283618">
-                  {{ tech.name }}
+              <!-- Face arrière -->
+              <div
+                class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center border border-blue-500/50"
+              >
+                <div class="text-center">
+                  <div class="text-blue-400 font-bold text-base mb-2">{{ tech.name }}</div>
+                  <div class="text-sm text-gray-400">Web Dev</div>
                 </div>
               </div>
             </div>
@@ -215,47 +237,50 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Gestion de Projets -->
-      <div
-        :class="['', isVisible ? 'animate-fadeInUp' : 'opacity-0']"
-        style="animation-delay: 0.6s"
-      >
-        <div class="flex items-center justify-center gap-4 mb-12">
-          <div class="h-px flex-1 max-w-32" style="background-color: #dda15e"></div>
+      <!-- Gestion & Collaboration -->
+      <div :class="['', isVisible ? 'animate-fade-in' : 'opacity-0']" style="animation-delay: 0.3s">
+        <div class="flex items-center gap-4 mb-10">
           <div
-            class="flex items-center gap-3 px-6 py-3 rounded-full border-2"
-            style="background-color: rgba(188, 108, 37, 0.1); border-color: #bc6c25"
+            class="p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl shadow-lg shadow-purple-500/30"
           >
-            <Globe :size="24" style="color: #bc6c25" />
-            <h3 class="text-2xl font-black" style="color: #283618">Gestion & Collaboration</h3>
+            <Globe :size="28" class="text-white" />
           </div>
-          <div class="h-px flex-1 max-w-32" style="background-color: #dda15e"></div>
+          <div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white">Gestion & Collaboration</h3>
+            <p class="text-sm sm:text-base text-gray-400">Outils de productivité</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 max-w-3xl">
           <div
-            v-for="(tech, index) in projectManagementTools"
-            :key="tech.name"
-            :class="['group relative', isVisible ? 'animate-scaleIn' : 'opacity-0']"
-            :style="`animation-delay: ${0.7 + index * 0.1}s`"
+            v-for="(tool, index) in projectManagementTools"
+            :key="tool.name"
+            :class="['group perspective', isVisible ? 'animate-zoom-in' : 'opacity-0']"
+            :style="`animation-delay: ${0.4 + index * 0.1}s`"
           >
             <div
-              class="relative p-10 rounded-2xl bg-white border-2 shadow-lg transition-all duration-300"
-              style="border-color: #dda15e"
-              @mouseenter="$event.currentTarget.style.borderColor = '#bc6c25'"
-              @mouseleave="$event.currentTarget.style.borderColor = '#dda15e'"
+              class="card-pro p-8 text-center cursor-pointer transition-all duration-500 transform-style-3d group-hover:rotate-y-180"
             >
-              <div class="flex items-center justify-center mb-5">
-                <div
-                  class="relative w-20 h-20 flex items-center justify-center rounded-xl bg-white"
-                >
-                  <img :src="tech.icon" :alt="tech.name" class="w-12 h-12 object-contain" />
+              <!-- Face avant -->
+              <div class="backface-hidden">
+                <div class="flex items-center justify-center mb-5">
+                  <div class="relative w-16 h-16 flex items-center justify-center">
+                    <img :src="tool.icon" :alt="tool.name" class="w-14 h-14 object-contain" />
+                  </div>
+                </div>
+
+                <div class="text-base font-semibold text-gray-300">
+                  {{ tool.name }}
                 </div>
               </div>
 
-              <div class="text-center">
-                <div class="font-bold text-lg" style="color: #283618">
-                  {{ tech.name }}
+              <!-- Face arrière -->
+              <div
+                class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center border border-purple-500/50"
+              >
+                <div class="text-center">
+                  <div class="text-purple-400 font-bold text-base mb-2">{{ tool.name }}</div>
+                  <div class="text-sm text-gray-400">Gestion</div>
                 </div>
               </div>
             </div>

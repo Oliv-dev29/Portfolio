@@ -27,7 +27,13 @@ const handleImageUpload = async (e) => {
   if (file) {
     isUploading.value = true
     try {
-      profileImage.value = URL.createObjectURL(file)
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        profileImage.value = event.target.result
+
+        localStorage.setItem('portfolioProfileImage', event.target.result)
+      }
+      reader.readAsDataURL(file)
     } catch (error) {
       console.error('Upload failed:', error)
     }
@@ -39,243 +45,164 @@ onMounted(() => {
   setTimeout(() => {
     isVisible.value = true
   }, 100)
+
+  // Restaurer l'image depuis localStorage si elle existe
+  const savedImage = localStorage.getItem('portfolioProfileImage')
+  if (savedImage) {
+    profileImage.value = savedImage
+  }
 })
 </script>
 
 <template>
   <section
     id="about"
-    class="relative min-h-screen flex items-center py-32 px-6 sm:px-12 lg:px-20 overflow-hidden"
+    class="relative min-h-screen flex items-center pt-32 pb-20 px-6 sm:px-8 lg:px-12 overflow-hidden"
   >
-    <!-- Arrière-plan professionnel -->
-    <div class="absolute inset-0" style="background-color: #283618"></div>
-
-    <!-- Motif subtil -->
-    <div class="absolute inset-0 opacity-5">
-      <div
-        class="absolute inset-0"
-        style="
-          background-image:
-            linear-gradient(rgba(96, 108, 56, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(96, 108, 56, 0.3) 1px, transparent 1px);
-          background-size: 50px 50px;
-        "
-      ></div>
-    </div>
-
-    <!-- Accents décoratifs -->
-    <div
-      class="absolute top-20 left-20 w-96 h-96 rounded-full blur-3xl animate-float"
-      style="background-color: rgba(96, 108, 56, 0.15)"
-    ></div>
-    <div
-      class="absolute bottom-20 right-20 w-96 h-96 rounded-full blur-3xl animate-float"
-      style="background-color: rgba(221, 161, 94, 0.1); animation-delay: -3s"
-    ></div>
-    <div
-      class="absolute top-1/2 left-1/2 w-96 h-96 rounded-full blur-3xl animate-float"
-      style="background-color: rgba(188, 108, 37, 0.1); animation-delay: -6s"
-    ></div>
-
     <div class="relative w-full max-w-7xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-20 items-center">
-        <!-- Contenu gauche -->
-        <div :class="['space-y-10', isVisible ? 'animate-fadeInLeft' : 'opacity-0']">
-          <div class="badge-premium">
-            <Briefcase :size="20" />
-            <span>Data Analyst • fullStack Developer</span>
-          </div>
-
-          <div class="space-y-6">
-            <h1
-              class="font-display text-6xl sm:text-7xl md:text-8xl font-black leading-[0.9] tracking-tighter"
-            >
-              <span class="text-white">Olive Marthe</span><br />
-              <span class="gradient-text" style="color: #dda15e"> FANDOHAN </span>
-            </h1>
-
-            <div class="flex items-center gap-3">
-              <div
-                class="h-px flex-1"
-                style="background: linear-gradient(to right, transparent, #dda15e, transparent);"
-              ></div>
-              <Zap :size="24" class="animate-pulse" style="color: #dda15e;" />
-              <div
-                class="h-px flex-1"
-                style="background: linear-gradient(to right, transparent, #dda15e, transparent);"
-              ></div>
-            </div>
-
-            <p class="text-2xl sm:text-3xl md:text-4xl font-light leading-relaxed" style="color: #fefae0;">
-              Je transforme les <span class="font-bold" style="color: #dda15e;">données brutes</span> en
-              <span class="font-bold" style="color: #dda15e;">expériences visuelles</span> exceptionnelles
-            </p>
-          </div>
-
-          <p class="text-lg text-slate-400 leading-relaxed max-w-xl">
-            Spécialisée en data science et développement frontend moderne, je crée des solutions
-            digitales qui allient <strong class="text-white">puissance analytique</strong> et
-            <strong class="text-white">design d'exception</strong>.
-          </p>
-
-          <!-- Stats -->
-          <div class="grid grid-cols-3 gap-4 pt-6">
-            <div
-              v-for="(stat, index) in stats"
-              :key="index"
-              :class="[
-                'card-pro p-6 text-center group hover-lift-3d',
-                isVisible ? 'animate-scaleIn' : 'opacity-0',
-              ]"
-              :style="`animation-delay: ${0.2 + index * 0.1}s`"
-            >
-              <component
-                :is="stat.icon"
-                :size="32"
-                class="mx-auto mb-3 transition-colors duration-500"
-                :style="`color: ${index === 0 ? '#bc6c25' : index === 1 ? '#dda15e' : '#606c38'};`"
-              />
-              <div class="text-3xl font-black text-white mb-1" style="color: #dda15e;">{{ stat.value }}</div>
-              <div class="text-xs font-medium" style="color: #fefae0;">{{ stat.label }}</div>
-            </div>
-          </div>
-
-          <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 pt-6">
-            <a
-              href="#contact"
-              class="btn-elegant group inline-flex items-center justify-center gap-3"
-            >
-              <span>Démarrons votre projet</span>
-              <ArrowRight
-                :size="20"
-                class="group-hover:translate-x-2 transition-transform duration-500"
-              />
-            </a>
-            <a href="#projects" class="btn-outline inline-flex items-center justify-center gap-2">
-              <Code :size="20" />
-              <span>Explorer mes projets</span>
-            </a>
-          </div>
-
-          <!-- Contact -->
-          <div class="flex items-center gap-4 pt-6" style="border-top: 1px solid #606c38;">
-            <div class="p-3 rounded-xl" style="background-color: rgba(221, 161, 94, 0.1); border: 2px solid #dda15e;">
-              <Mail :size="20" style="color: #dda15e;" />
-            </div>
-            <a
-              href="mailto:olive.fandohan@epitech.eu"
-              class="font-semibold transition-colors duration-300"
-              style="color: #fefae0;"
-              onmouseover="this.style.color='#dda15e'"
-              onmouseout="this.style.color='#fefae0'"
-            >
-              olive.fandohan@epitech.eu
-            </a>
-          </div>
-        </div>
-
-        <!-- Photo avec effets premium -->
+      <!-- Hero centré avec photo en haut -->
+      <div class="text-center space-y-12">
+        <!-- Photo professionnelle centrée -->
         <div
-          :class="[
-            'flex justify-center lg:justify-end',
-            isVisible ? 'animate-fadeInRight' : 'opacity-0',
-          ]"
-          style="animation-delay: 0.3s"
+          :class="['flex justify-center', isVisible ? 'animate-fade-in' : 'opacity-0']"
+          style="animation-delay: 0.1s"
         >
           <div class="relative group">
-            <!-- Halo -->
+            <!-- Halo bleu -->
             <div
-              class="absolute -inset-4 rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-700"
-              style="background-color: #bc6c25;"
+              class="absolute -inset-4 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"
             ></div>
-
-            <!-- Anneaux décoratifs -->
-            <div
-              class="absolute -inset-8 border-2 rounded-full"
-              style="border-color: rgba(221, 161, 94, 0.3);"
-            ></div>
-            <div class="absolute -inset-12 border rounded-full" style="border-color: rgba(96, 108, 56, 0.2);"></div>
 
             <!-- Conteneur photo -->
             <div
-              class="relative w-80 h-80 md:w-[500px] md:h-[500px] rounded-full overflow-hidden p-1 hover-lift-3d"
-              style="background-color: #bc6c25;"
+              class="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-blue-500/30 shadow-2xl backdrop-blur-sm"
             >
-              <div class="w-full h-full rounded-full overflow-hidden" style="background-color: #283618;">
+              <div class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900">
                 <img
                   v-if="profileImage"
                   :src="profileImage"
                   alt="Olive FANDOHAN"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div
-                  v-else
-                  class="w-full h-full flex flex-col items-center justify-center"
-                  style="background-color: #283618;"
-                >
-                  <label
-                    class="cursor-pointer flex flex-col items-center gap-6 transition-colors duration-500"
-                    style="color: #fefae0;"
-                    onmouseover="this.style.color='#dda15e'"
-                    onmouseout="this.style.color='#fefae0'"
-                  >
-                    <div
-                      :class="[
-                        'p-8 rounded-3xl glass transition-all duration-500',
-                        isUploading ? 'animate-pulse' : '',
-                      ]"
-                      style="border: 2px solid #bc6c25;"
-                    >
-                      <Upload :size="48" />
-                    </div>
-                    <div class="text-center">
-                      <div class="text-2xl font-bold text-white mb-2">Ajoutez votre photo</div>
-                      <div class="text-sm" style="color: #dda15e;">PNG, JPG jusqu'à 10MB</div>
-                    </div>
+                <div v-else class="w-full h-full flex flex-col items-center justify-center">
+                  <label class="cursor-pointer flex flex-col items-center gap-3">
                     <input
                       type="file"
-                      class="hidden"
                       accept="image/*"
                       @change="handleImageUpload"
+                      class="hidden"
                     />
+                    <Upload :size="40" class="text-blue-400" />
+                    <span class="text-sm text-blue-400 font-semibold">Ajouter une photo</span>
                   </label>
                 </div>
               </div>
-
-              <!-- Badge de statut -->
-              <div
-                v-if="profileImage"
-                class="absolute bottom-8 right-8 glass px-6 py-3 rounded-full border border-white/20 backdrop-blur-xl"
-              >
-                <div class="flex items-center gap-3">
-                  <div class="relative">
-                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <div
-                      class="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping"
-                    ></div>
-                  </div>
-                  <span class="text-sm font-bold text-white"
-                    >Disponible pour de nouveaux projets</span
-                  >
-                </div>
-              </div>
             </div>
-
-            <!-- Particules flottantes -->
-            <div
-              class="absolute top-10 right-10 w-4 h-4 rounded-full blur-sm animate-float"
-              style="background-color: #dda15e;"
-            ></div>
-            <div
-              class="absolute bottom-20 left-10 w-3 h-3 rounded-full blur-sm animate-float"
-              style="background-color: #bc6c25; animation-delay: -2s;"
-            ></div>
-            <div
-              class="absolute top-1/2 right-5 w-2 h-2 rounded-full blur-sm animate-float"
-              style="background-color: #606c38; animation-delay: -4s;"
-            ></div>
           </div>
+        </div>
+
+        <!-- Titre et introduction -->
+        <div
+          :class="['max-w-4xl mx-auto space-y-6', isVisible ? 'animate-slide-up' : 'opacity-0']"
+          style="animation-delay: 0.2s"
+        >
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight"
+          >
+            <span
+              class="block mt-2 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent"
+            >
+              Olive Marthe Fandohan
+            </span>
+          </h1>
+
+          <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+            <div class="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent to-blue-500"></div>
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-300">
+              Data Analyst & Full Stack Developer
+            </p>
+            <div class="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent to-cyan-500"></div>
+          </div>
+
+          <p
+            class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto px-4"
+          >
+            Passionnée par la transformation des données en insights actionnables, je combine
+            <span class="text-blue-400 font-semibold">4+ années d'expérience</span> en analyse de
+            données avec une expertise en
+            <span class="text-cyan-400 font-semibold">développement web moderne</span> pour créer
+            des solutions innovantes et impactantes.
+          </p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div
+          :class="[
+            'grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4',
+            isVisible ? 'animate-fade-in' : 'opacity-0',
+          ]"
+          style="animation-delay: 0.3s"
+        >
+          <div
+            v-for="(stat, index) in stats"
+            :key="index"
+            class="card-pro group hover:-translate-y-2 transition-all duration-300 p-4 sm:p-6"
+          >
+            <div class="flex flex-col items-center gap-3">
+              <div
+                class="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 group-hover:from-blue-500/30 group-hover:to-cyan-500/30 transition-all duration-300"
+              >
+                <component :is="stat.icon" :size="32" class="text-blue-400" />
+              </div>
+              <div
+                class="text-4xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
+              >
+                {{ stat.value }}
+              </div>
+              <div class="text-sm font-medium text-gray-400">{{ stat.label }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div
+          :class="[
+            'flex flex-col sm:flex-row items-center justify-center gap-4 px-4',
+            isVisible ? 'animate-fade-in' : 'opacity-0',
+          ]"
+          style="animation-delay: 0.4s"
+        >
+          <a
+            href="#contact"
+            class="btn-primary inline-flex items-center justify-center gap-3 group w-full sm:w-auto"
+          >
+            <span>Démarrons un projet</span>
+            <ArrowRight :size="20" class="group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a
+            href="#projects"
+            class="card-pro inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-4 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+          >
+            <Code :size="20" class="text-cyan-400" />
+            <span class="text-white font-semibold">Voir mes projets</span>
+          </a>
+        </div>
+
+        <!-- Contact Email -->
+        <div
+          :class="[
+            'inline-flex items-center gap-3 px-6 py-3 card-pro',
+            isVisible ? 'animate-fade-in' : 'opacity-0',
+          ]"
+          style="animation-delay: 0.5s"
+        >
+          <Mail :size="20" class="text-blue-400" />
+          <a
+            href="mailto:olive.fandohan@epitech.eu"
+            class="font-semibold text-gray-300 hover:text-blue-400 transition-colors duration-300"
+          >
+            olive.fandohan@epitech.eu
+          </a>
         </div>
       </div>
     </div>
@@ -283,10 +210,9 @@ onMounted(() => {
     <!-- Indicateur de scroll -->
     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
       <div
-        class="w-6 h-10 border-2 rounded-full flex items-start justify-center p-2"
-        style="border-color: #dda15e;"
+        class="w-6 h-10 border-2 border-blue-400/50 rounded-full flex items-start justify-center p-2"
       >
-        <div class="w-1 h-2 rounded-full animate-pulse" style="background-color: #dda15e;"></div>
+        <div class="w-1 h-2 bg-blue-400 rounded-full animate-pulse"></div>
       </div>
     </div>
   </section>
