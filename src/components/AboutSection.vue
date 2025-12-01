@@ -12,8 +12,6 @@ import {
   Zap,
 } from 'lucide-vue-next'
 
-const profileImage = ref(null)
-const isUploading = ref(false)
 const isVisible = ref(false)
 const typedSubtitle = ref('')
 const typedDescription = ref('')
@@ -52,35 +50,10 @@ const typeWriter = (text, target, delay = 50) => {
   })
 }
 
-const handleImageUpload = async (e) => {
-  const file = e.target.files[0]
-  if (file) {
-    isUploading.value = true
-    try {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        profileImage.value = event.target.result
-
-        localStorage.setItem('portfolioProfileImage', event.target.result)
-      }
-      reader.readAsDataURL(file)
-    } catch (error) {
-      console.error('Upload failed:', error)
-    }
-    isUploading.value = false
-  }
-}
-
 onMounted(() => {
   setTimeout(() => {
     isVisible.value = true
   }, 100)
-
-  // Restaurer l'image depuis localStorage si elle existe
-  const savedImage = localStorage.getItem('portfolioProfileImage')
-  if (savedImage) {
-    profileImage.value = savedImage
-  }
 
   // Démarrer les animations typing
   setTimeout(async () => {
@@ -121,23 +94,10 @@ onMounted(() => {
             >
               <div class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900">
                 <img
-                  v-if="profileImage"
-                  :src="profileImage"
+                  src="../assets/img/olive.jpeg"
                   alt="Olive FANDOHAN"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div v-else class="w-full h-full flex flex-col items-center justify-center">
-                  <label class="cursor-pointer flex flex-col items-center gap-3">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      @change="handleImageUpload"
-                      class="hidden"
-                    />
-                    <Upload :size="40" class="text-blue-400" />
-                    <span class="text-sm text-blue-400 font-semibold">Ajouter une photo</span>
-                  </label>
-                </div>
               </div>
             </div>
           </div>
