@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import {
   Upload,
   Mail,
@@ -15,12 +15,42 @@ import {
 const profileImage = ref(null)
 const isUploading = ref(false)
 const isVisible = ref(false)
+const typedSubtitle = ref('')
+const typedDescription = ref('')
+const showCursor = ref(true)
+
+const formattedDescription = computed(() => {
+  return typedDescription.value
+    .replace(
+      /4\+ années d'expérience/g,
+      '<span class="text-blue-400 font-semibold">4+ années d\'expérience</span>',
+    )
+    .replace(
+      /développement web moderne/g,
+      '<span class="text-cyan-400 font-semibold">développement web moderne</span>',
+    )
+})
 
 const stats = [
   { value: '4+', label: "Années d'expérience", icon: Award },
-  { value: '20+', label: 'Projets réalisés', icon: Code },
+  { value: '20+', label: 'Portfolios réalisés', icon: Code },
   { value: '100%', label: 'Satisfaction client', icon: Sparkles },
 ]
+
+const typeWriter = (text, target, delay = 50) => {
+  let index = 0
+  return new Promise((resolve) => {
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        target.value += text.charAt(index)
+        index++
+      } else {
+        clearInterval(interval)
+        resolve()
+      }
+    }, delay)
+  })
+}
 
 const handleImageUpload = async (e) => {
   const file = e.target.files[0]
@@ -51,6 +81,18 @@ onMounted(() => {
   if (savedImage) {
     profileImage.value = savedImage
   }
+
+  // Démarrer les animations typing
+  setTimeout(async () => {
+    await typeWriter('Data Analyst & Full Stack Developer', typedSubtitle, 60)
+    await new Promise((resolve) => setTimeout(resolve, 300))
+    await typeWriter(
+      "Passionnée par la transformation des données en insights actionnables, je combine 4+ années d'expérience en analyse de données avec une expertise en développement web moderne pour créer des solutions innovantes et impactantes.",
+      typedDescription,
+      30,
+    )
+    showCursor.value = false
+  }, 800)
 })
 </script>
 
@@ -112,26 +154,26 @@ onMounted(() => {
             <span
               class="block mt-2 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent"
             >
-              Olive Marthe Fandohan
+              Olive Marthe FANDOHAN
             </span>
           </h1>
 
           <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
             <div class="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent to-blue-500"></div>
-            <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-300">
-              Data Analyst & Full Stack Developer
+            <p
+              class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-300 min-h-[1.5em]"
+            >
+              {{ typedSubtitle
+              }}<span v-if="showCursor && typedSubtitle.length < 38" class="animate-pulse">|</span>
             </p>
             <div class="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent to-cyan-500"></div>
           </div>
 
           <p
-            class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto px-4"
+            class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto px-4 min-h-[4em]"
           >
-            Passionnée par la transformation des données en insights actionnables, je combine
-            <span class="text-blue-400 font-semibold">4+ années d'expérience</span> en analyse de
-            données avec une expertise en
-            <span class="text-cyan-400 font-semibold">développement web moderne</span> pour créer
-            des solutions innovantes et impactantes.
+            <span v-html="formattedDescription"></span
+            ><span v-if="showCursor" class="animate-pulse">|</span>
           </p>
         </div>
 
@@ -176,7 +218,7 @@ onMounted(() => {
             href="#contact"
             class="btn-primary inline-flex items-center justify-center gap-3 group w-full sm:w-auto"
           >
-            <span>Démarrons un projet</span>
+            <span>Démarrons un portfolio</span>
             <ArrowRight :size="20" class="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
@@ -184,7 +226,7 @@ onMounted(() => {
             class="card-pro inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-4 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
           >
             <Code :size="20" class="text-cyan-400" />
-            <span class="text-white font-semibold">Voir mes projets</span>
+            <span class="text-white font-semibold">Voir mes portfolios</span>
           </a>
         </div>
 

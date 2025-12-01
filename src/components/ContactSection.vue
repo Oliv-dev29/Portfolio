@@ -10,6 +10,9 @@ import {
   MessageSquare,
   Sparkles,
 } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
+
+const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
 
 const contactInfo = [
   {
@@ -61,7 +64,14 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <section id="contact" class="relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden">
+  <section
+    id="contact"
+    ref="sectionRef"
+    :class="[
+      'relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden transition-all duration-1000',
+      isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
+    ]"
+  >
     <div class="relative w-full max-w-[1600px] mx-auto">
       <!-- Header -->
       <div class="text-center mb-12">
@@ -83,8 +93,8 @@ const handleSubmit = async () => {
         <p
           class="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
         >
-          Un projet en tête ? Une question ? Je suis toujours ouverte à de nouvelles opportunités de
-          collaboration.
+          Un portfolio en tête ? Une question ? Je suis toujours ouverte à de nouvelles opportunités
+          de collaboration.
         </p>
       </div>
 
@@ -226,7 +236,7 @@ const handleSubmit = async () => {
                   required
                   rows="6"
                   class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                  placeholder="Décrivez votre projet ou votre demande..."
+                  placeholder="Décrivez votre portfolio ou votre demande..."
                 ></textarea>
               </div>
 
@@ -253,7 +263,7 @@ const handleSubmit = async () => {
         <div class="card-pro inline-flex items-center gap-4 px-8 py-6">
           <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
           <p class="text-lg font-semibold text-white">
-            Disponible pour des projets freelance et collaborations
+            Disponible pour des portfolios freelance et collaborations
           </p>
         </div>
       </div>

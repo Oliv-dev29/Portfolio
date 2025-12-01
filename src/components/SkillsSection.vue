@@ -1,8 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Code2, Database, Globe } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const isVisible = ref(false)
+const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
 
 // Technologies Web
 const webTechs = [
@@ -73,7 +75,7 @@ const dataTechs = [
   { name: 'R', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg' },
 ]
 
-// Outils de gestion de projets
+// Outils de gestion de portfolios
 const projectManagementTools = [
   {
     name: 'Trello',
@@ -97,7 +99,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="skills" class="relative py-16 px-6 sm:px-8 lg:px-12 overflow-hidden">
+  <section
+    id="skills"
+    ref="sectionRef"
+    :class="[
+      'relative py-16 px-6 sm:px-8 lg:px-12 overflow-hidden transition-all duration-1000',
+      isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
+    ]"
+  >
     <div class="relative w-full max-w-7xl mx-auto">
       <!-- En-tête de section avec thème sombre -->
       <div :class="['text-center mb-12', isVisible ? 'animate-slide-up' : 'opacity-0']">

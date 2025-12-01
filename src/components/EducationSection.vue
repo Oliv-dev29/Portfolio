@@ -1,8 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { GraduationCap, Award, Calendar, MapPin, Trophy, BookOpen } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const isVisible = ref(false)
+const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
 
 const education = [
   {
@@ -67,7 +69,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="education" class="relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden">
+  <section
+    id="education"
+    ref="sectionRef"
+    :class="[
+      'relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden transition-all duration-1000',
+      isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
+    ]"
+  >
     <div class="relative max-w-7xl mx-auto">
       <!-- En-tête -->
       <div :class="['text-center mb-12', isVisible ? 'animate-fadeInDown' : 'opacity-0']">

@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { Briefcase, Calendar, MapPin, ChevronRight, ExternalLink } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
+
+const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
 
 const experiences = [
   {
@@ -13,7 +16,7 @@ const experiences = [
     location: 'Cotonou, Bénin',
     description: "Analyse de données pour mesurer l'impact en nutrition, agriculture et santé.",
     responsibilities: [
-      "Analyse de données pour mesurer l'impact des projets en nutrition, agriculture et santé",
+      "Analyse de données pour mesurer l'impact des portfolios en nutrition, agriculture et santé",
       "Conception d'indicateurs de performance et tableaux de bord",
       'Création de visualisations et outils de suivi-performance',
       'Rédaction de rapports et recommandations stratégiques',
@@ -28,7 +31,14 @@ const expandedId = ref(1)
 </script>
 
 <template>
-  <section id="experience" class="py-16">
+  <section
+    id="experience"
+    ref="sectionRef"
+    :class="[
+      'py-16 transition-all duration-1000',
+      isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
+    ]"
+  >
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center mb-12">
@@ -38,7 +48,7 @@ const expandedId = ref(1)
           <div class="w-12 h-1 bg-green-500"></div>
         </div>
         <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-          Expériences professionnelles
+          Autres expériences
         </h2>
         <p
           class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"

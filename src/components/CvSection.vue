@@ -1,11 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Eye, FileText } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const cvUrl =
   'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_692b0d2d0fc4960e9ebcd6de/d88d7b9a9_Olive-FANDOHAN_CV_vf2.pdf'
 
 const isVisible = ref(false)
+const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
+
+const openCV = () => {
+  const viewUrl = `${cvUrl}#view=FitH`
+  window.open(viewUrl, '_blank', 'noopener,noreferrer')
+}
 
 onMounted(() => {
   setTimeout(() => {
@@ -15,7 +22,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="cv" class="relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden">
+  <section
+    id="cv"
+    ref="sectionRef"
+    :class="[
+      'relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden transition-all duration-1000',
+      isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
+    ]"
+  >
     <div class="relative w-full max-w-4xl mx-auto">
       <!-- Header -->
       <div :class="['text-center space-y-8', isVisible ? 'animate-fadeInUp' : 'opacity-0']">
@@ -41,10 +55,9 @@ onMounted(() => {
         <!-- Bouton CV -->
         <div class="flex justify-center">
           <a
-            :href="cvUrl"
+            :href="`https://docs.google.com/viewer?url=${encodeURIComponent(cvUrl)}&embedded=true`"
             target="_blank"
             rel="noopener noreferrer"
-            @click.prevent="window.open(cvUrl, '_blank')"
             class="group relative overflow-hidden px-12 py-6 rounded-2xl font-bold text-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-4 cursor-pointer"
           >
             <div

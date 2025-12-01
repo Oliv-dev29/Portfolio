@@ -5,8 +5,8 @@ import { Menu, X, Sparkles } from 'lucide-vue-next'
 const navLinks = [
   { id: 'about', label: 'Accueil' },
   { id: 'skills', label: 'Compétences' },
+  { id: 'projects', label: 'Portfolios' },
   { id: 'experience', label: 'Expérience' },
-  { id: 'projects', label: 'Projets' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -87,7 +87,7 @@ onUnmounted(() => {
             <!-- Nom (visible uniquement sur desktop) -->
             <div class="hidden sm:block">
               <div class="font-bold text-lg text-white transition-colors duration-300">
-                Olive Fandohan
+                Olive FANDOHAN
               </div>
               <div
                 class="text-xs bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-medium"

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   ExternalLink,
   Github,
@@ -9,61 +10,24 @@ import {
   Database,
   Globe,
 } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
+import { projectsData } from '@/data/projects'
 
-const projects = [
-  {
-    id: 1,
-    title: 'Analyse de Sentiment',
-    category: 'Data Science',
-    period: '11/2025',
-    institution: 'EPITECH Bénin',
-    description:
-      "Analyse automatisée des avis et messages en ligne pour identifier les sentiments exprimés par les utilisateurs. Mise en place d'un système de traitement en continu permettant d'obtenir des insights en temps réel.",
-    technologies: ['Python', 'Kafka', 'NLTK', 'spaCy', 'scikit-learn'],
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60',
-    icon: Database,
-  },
-  {
-    id: 2,
-    title: 'Deep Learning',
-    category: 'Machine Learning',
-    period: '11/2025',
-    institution: 'EPITECH Bénin',
-    description:
-      "Développement d'un modèle de deep learning pour prédire des résultats à partir de données structurées et non structurées.",
-    technologies: ['TensorFlow', 'Python', 'Keras', 'NumPy'],
-    image:
-      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop&q=60',
-    icon: Code,
-  },
-  {
-    id: 3,
-    title: 'Yowl Community',
-    category: 'Web Development',
-    period: '10/2025',
-    institution: 'EPITECH Bénin',
-    description:
-      'YOWL permet de laisser son avis et de partager des contenus sur internet. Plateforme communautaire complète avec extension navigateur.',
-    technologies: ['Laravel', 'Vue.js', 'JavaScript', 'MySQL'],
-    image:
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=60',
-    icon: Globe,
-  },
-  {
-    id: 4,
-    title: 'TWP - Task Management',
-    category: 'Web Development',
-    period: '09/2025',
-    institution: 'EPITECH Bénin',
-    description:
-      'TWP est une plateforme de planification type Trello qui facilite la gestion de tâches en équipe avec une interface intuitive.',
-    technologies: ['Vue.js', 'Tailwind CSS', 'API WordPress'],
-    image:
-      'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&auto=format&fit=crop&q=60',
-    icon: Code,
-  },
-]
+const router = useRouter()
+const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
+
+// Map icon names to components
+const iconMap = {
+  Database: Database,
+  Code: Code,
+  Globe: Globe,
+}
+
+// Map projects with icon components
+const projects = projectsData.map((project) => ({
+  ...project,
+  icon: iconMap[project.icon] || Code,
+}))
 
 const categories = ['Tous', 'Web Development', 'Data Science', 'Machine Learning']
 
@@ -77,6 +41,10 @@ const filteredProjects = computed(() => {
     : projects.filter((p) => p.category === activeCategory.value)
 })
 
+const openProjectDetail = (projectId) => {
+  router.push({ name: 'ProjectDetail', params: { id: projectId } })
+}
+
 onMounted(() => {
   setTimeout(() => {
     isVisible.value = true
@@ -89,14 +57,21 @@ import { onMounted } from 'vue'
 </script>
 
 <template>
-  <section id="projects" class="relative py-32 px-6 sm:px-12 lg:px-20 overflow-hidden">
+  <section
+    id="projects"
+    ref="sectionRef"
+    :class="[
+      'relative py-16 px-6 sm:px-12 lg:px-20 overflow-hidden transition-all duration-1000',
+      isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
+    ]"
+  >
     <div class="relative max-w-7xl mx-auto">
       <!-- En-tête -->
       <div :class="['text-center mb-20', isVisible ? 'animate-fadeInDown' : 'opacity-0']">
         <div class="flex items-center justify-center gap-3 mb-8">
           <div class="w-12 h-1 bg-orange-500"></div>
           <span class="text-sm font-semibold text-orange-400 uppercase tracking-wider"
-            >Mes projets</span
+            >Mes portfolios</span
           >
           <div class="w-12 h-1 bg-orange-500"></div>
         </div>
@@ -104,7 +79,7 @@ import { onMounted } from 'vue'
         <h2
           class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 leading-tight tracking-tighter text-white"
         >
-          Projets
+          Portfolios
         </h2>
 
         <p
@@ -136,23 +111,24 @@ import { onMounted } from 'vue'
         </div>
       </div>
 
-      <!-- Grille de projets -->
+      <!-- Grille de portfolios -->
       <div class="grid md:grid-cols-2 gap-8">
         <div
           v-for="(project, index) in filteredProjects"
           :key="project.id"
-          :class="['group relative', isVisible ? 'animate-scaleIn' : 'opacity-0']"
+          :class="['group relative cursor-pointer', isVisible ? 'animate-scaleIn' : 'opacity-0']"
           :style="`animation-delay: ${0.3 + index * 0.1}s`"
+          @click="openProjectDetail(project.id)"
         >
           <div
-            class="card-pro relative h-full rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:border-orange-500/50"
+            class="card-pro relative h-full rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:border-orange-500/50 hover:shadow-orange-500/20 hover:shadow-xl hover:-translate-y-2"
           >
             <!-- Image -->
             <div class="relative h-72 overflow-hidden">
               <img
                 :src="project.image"
                 :alt="project.title"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div
                 class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent"
@@ -165,6 +141,18 @@ import { onMounted } from 'vue'
                 >
                   <component :is="project.icon" :size="16" class="text-orange-400" />
                   <span class="text-sm font-bold text-orange-300">{{ project.category }}</span>
+                </div>
+              </div>
+
+              <!-- Badge "Voir plus" au survol -->
+              <div
+                class="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300"
+              >
+                <div
+                  class="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold text-sm"
+                >
+                  <span>Voir plus</span>
+                  <ArrowUpRight :size="16" />
                 </div>
               </div>
             </div>
@@ -180,22 +168,30 @@ import { onMounted } from 'vue'
                 <span class="hidden sm:inline">{{ project.institution }}</span>
               </div>
 
-              <h3 class="font-display text-xl sm:text-2xl md:text-3xl font-black mb-4 text-white">
+              <h3
+                class="font-display text-xl sm:text-2xl md:text-3xl font-black mb-4 text-white group-hover:text-orange-400 transition-colors duration-300"
+              >
                 {{ project.title }}
               </h3>
 
-              <p class="text-sm sm:text-base leading-relaxed mb-6 text-gray-300">
+              <p class="text-sm sm:text-base leading-relaxed mb-6 text-gray-300 line-clamp-3">
                 {{ project.description }}
               </p>
 
               <!-- Technologies -->
               <div class="flex flex-wrap gap-2">
                 <span
-                  v-for="tech in project.technologies"
+                  v-for="tech in project.technologies.slice(0, 4)"
                   :key="tech"
                   class="px-4 py-2 rounded-xl text-sm font-bold border border-orange-500/50 bg-orange-500/20 text-orange-300 transition-all duration-300 hover:bg-orange-500/30"
                 >
                   {{ tech }}
+                </span>
+                <span
+                  v-if="project.technologies.length > 4"
+                  class="px-4 py-2 rounded-xl text-sm font-bold border border-orange-500/50 bg-orange-500/20 text-orange-300"
+                >
+                  +{{ project.technologies.length - 4 }}
                 </span>
               </div>
             </div>
