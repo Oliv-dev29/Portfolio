@@ -87,7 +87,7 @@ const dataTechs = [
   { name: 'R', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg' },
 ]
 
-// Outils de gestion de portfolios
+// Outils de gestion de projet
 const projectManagementTools = [
   {
     name: 'Trello',

@@ -16,7 +16,7 @@ const experiences = [
     location: 'Cotonou, Bénin',
     description: "Analyse de données pour mesurer l'impact en nutrition, agriculture et santé.",
     responsibilities: [
-      "Analyse de données pour mesurer l'impact des portfolios en nutrition, agriculture et santé",
+      "Analyse de données pour mesurer l'impact des projets en nutrition, agriculture et santé",
       "Conception d'indicateurs de performance et tableaux de bord",
       'Création de visualisations et outils de suivi-performance',
       'Rédaction de rapports et recommandations stratégiques',

@@ -254,7 +254,7 @@ const handleSubmit = async () => {
         <div class="card-pro inline-flex items-center gap-4 px-8 py-6">
           <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
           <p class="text-lg font-semibold text-white">
-            Disponible pour des portfolios freelance et collaborations
+            Disponible pour des projets freelance et collaborations
           </p>
         </div>
       </div>

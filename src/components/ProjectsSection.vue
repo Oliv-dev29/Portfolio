@@ -71,7 +71,7 @@ import { onMounted } from 'vue'
         <div class="flex items-center justify-center gap-3 mb-8">
           <div class="w-12 h-1 bg-orange-500"></div>
           <span class="text-sm font-semibold text-orange-400 uppercase tracking-wider"
-            >Mes portfolios</span
+            >Mon portfolio</span
           >
           <div class="w-12 h-1 bg-orange-500"></div>
         </div>
@@ -79,7 +79,7 @@ import { onMounted } from 'vue'
         <h2
           class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 leading-tight tracking-tighter text-white"
         >
-          Portfolios
+          Portfolio
         </h2>
 
         <p
@@ -111,7 +111,7 @@ import { onMounted } from 'vue'
         </div>
       </div>
 
-      <!-- Grille de portfolios -->
+      <!-- Grille de portfolio -->
       <div class="grid md:grid-cols-2 gap-8">
         <div
           v-for="(project, index) in filteredProjects"

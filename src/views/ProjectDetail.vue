@@ -64,7 +64,7 @@ onMounted(() => {
           class="group flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105"
         >
           <ArrowLeft :size="20" class="group-hover:-translate-x-1 transition-transform" />
-          Retour aux portfolios
+          Retour au portfolio
         </button>
       </div>
     </div>

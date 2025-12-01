@@ -19,6 +19,18 @@ const education = [
     status: 'En cours',
   },
   {
+    type: 'certification',
+    title: 'Postman Student Expert Certification',
+    institution: 'Postman',
+    period: '2025',
+    location: '',
+    description:
+      'Certification officielle Postman validant la maîtrise des API: requêtes, collections, variables, tests automatisés, documentation et workflows.',
+    skills: ['Postman', 'API Testing', 'Collections', 'Automatisation', 'Documentation API'],
+    icon: Award,
+    status: 'Complété',
+  },
+  {
     type: 'diploma',
     title: 'Master en Biostatistique',
     institution: "LABEF / Université D'Abomey-Calavi",
@@ -51,21 +63,9 @@ const education = [
     icon: BookOpen,
     status: 'Complété',
   },
-  {
-    type: 'certification',
-    title: 'Postman Student Expert Certification',
-    institution: 'Postman',
-    period: '2025',
-    location: '',
-    description:
-      'Certification officielle Postman validant la maîtrise des API: requêtes, collections, variables, tests automatisés, documentation et workflows.',
-    skills: ['Postman', 'API Testing', 'Collections', 'Automatisation', 'Documentation API'],
-    icon: Award,
-    status: 'Complété',
-  },
 ]
 
-// Section des certifications détachée supprimée pour intégrer Postman dans la timeline
+
 
 onMounted(() => {
   setTimeout(() => {

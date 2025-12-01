@@ -42,7 +42,7 @@ onMounted(() => {
         <h2 class="font-display text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
           <span class="text-white">Curriculum</span>
           <span
-            class="block mt-2 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent"
+            class="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent ml-2"
           >
             Vitae
           </span>

@@ -31,7 +31,7 @@ const formattedDescription = computed(() => {
 
 const stats = [
   { value: '4+', label: "Années d'expérience", icon: Award },
-  { value: '20+', label: 'Portfolios réalisés', icon: Code },
+  { value: '20+', label: 'Portfolio réalisé', icon: Code },
   { value: '100%', label: 'Satisfaction client', icon: Sparkles },
 ]
 
@@ -178,7 +178,7 @@ onMounted(() => {
             href="#contact"
             class="btn-primary inline-flex items-center justify-center gap-3 group w-full sm:w-auto"
           >
-            <span>Démarrons un portfolio</span>
+            <span>Démarrons mon portfolio</span>
             <ArrowRight :size="20" class="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
@@ -186,7 +186,7 @@ onMounted(() => {
             class="card-pro inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-4 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
           >
             <Code :size="20" class="text-cyan-400" />
-            <span class="text-white font-semibold">Voir mes portfolios</span>
+            <span class="text-white font-semibold">Voir mon portfolio</span>
           </a>
         </div>
 

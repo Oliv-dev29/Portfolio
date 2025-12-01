@@ -36,7 +36,7 @@ onUnmounted(() => {
       <!-- Formation -->
       <EducationSection />
 
-      <!-- Portfolios -->
+      <!-- Portfolio -->
       <ProjectsSection />
 
       <!-- Autres expériences -->

@@ -199,7 +199,7 @@ export const projectsData = [
       <h3>Fonctionnalités Clés</h3>
       <ul>
         <li>Tableaux Kanban personnalisables avec drag & drop</li>
-        <li>Gestion de portfolios et d'équipes multiples</li>
+        <li>Gestion de projets et d'équipes multiples</li>
         <li>Attribution de tâches avec deadlines et priorités</li>
         <li>Système de labels et tags personnalisés</li>
         <li>Notifications et rappels automatiques</li>
@@ -230,7 +230,7 @@ export const projectsData = [
     demo: 'https://twp-demo.netlify.app',
     features: [
       'Tableaux Kanban avec drag & drop intuitif',
-      'Gestion multi-portfolios et multi-équipes',
+      'Gestion multi-projets et multi-équipes',
       'Système de priorités et deadlines',
       'Notifications et rappels automatiques',
       'Statistiques et rapports de productivité',

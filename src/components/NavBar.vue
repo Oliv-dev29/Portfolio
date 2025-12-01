@@ -8,7 +8,7 @@ const { isDark, toggleTheme } = useTheme()
 const navLinks = [
   { id: 'about', label: 'Accueil' },
   { id: 'skills', label: 'Compétences' },
-  { id: 'projects', label: 'Portfolios' },
+  { id: 'projects', label: 'Portfolio' },
   { id: 'experience', label: 'Expérience' },
 ]
 
