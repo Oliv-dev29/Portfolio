@@ -1,5 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { GraduationCap, Award, Calendar, MapPin, BookOpen } from 'lucide-vue-next'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
@@ -65,12 +67,60 @@ const education = [
   },
 ]
 
+// Tri par date décroissante (date de début de la période)
+const parseStartDate = (period) => {
+  if (!period) return 0
+  const firstPart = String(period).split('–')[0].trim()
+  // Formats attendus: "MM/YYYY", "YYYY"
+  const mmYYYY = /^(\d{2})\/(\d{4})$/
+  const onlyYYYY = /^(\d{4})$/
+  if (mmYYYY.test(firstPart)) {
+    const [, mm, yyyy] = firstPart.match(mmYYYY)
+    return new Date(Number(yyyy), Number(mm) - 1, 1).getTime()
+  }
+  if (onlyYYYY.test(firstPart)) {
+    const [, yyyy] = firstPart.match(onlyYYYY)
+    return new Date(Number(yyyy), 0, 1).getTime()
+  }
+  return 0
+}
 
+const sortedEducation = computed(() => {
+  return [...education].sort((a, b) => parseStartDate(b.period) - parseStartDate(a.period))
+})
 
 onMounted(() => {
   setTimeout(() => {
     isVisible.value = true
   }, 100)
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  // Header animation
+  gsap.from('#education .text-center', {
+    opacity: 0,
+    y: 30,
+    duration: 0.8,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '#education',
+      start: 'top 80%',
+    },
+  })
+
+  // Animate each card individually on enter
+  gsap.utils.toArray('#education .edu-card').forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+      },
+    })
+  })
 })
 </script>
 
@@ -115,14 +165,12 @@ onMounted(() => {
 
         <div class="space-y-12">
           <div
-            v-for="(item, index) in education"
+            v-for="(item, index) in sortedEducation"
             :key="index"
             :class="[
               'relative flex flex-col md:flex-row gap-8 md:gap-12',
               index % 2 === 0 ? 'md:flex-row-reverse' : '',
-              isVisible ? 'animate-fadeInUp' : 'opacity-0',
             ]"
-            :style="`animation-delay: ${0.2 + index * 0.15}s`"
           >
             <!-- Icône timeline centrale -->
             <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 z-20">
@@ -138,7 +186,7 @@ onMounted(() => {
             <!-- Carte de formation -->
             <div :class="['flex-1', index % 2 === 0 ? 'md:pr-20' : 'md:pl-20']">
               <div
-                class="card-pro relative h-full p-3 sm:p-4 md:p-4 transition-all duration-300 hover:border-purple-500/50"
+                class="card-pro edu-card relative h-full p-3 sm:p-4 md:p-4 transition-all duration-300 hover:border-purple-500/50"
               >
                 <!-- Barre supérieure -->
                 <div
