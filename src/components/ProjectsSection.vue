@@ -158,7 +158,7 @@ import { onMounted } from 'vue'
             </div>
 
             <!-- Contenu -->
-            <div class="p-4 sm:p-6 md:p-8">
+            <div class="p-4 sm:p-5 md:p-6">
               <div
                 class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm mb-4 text-gray-400"
               >

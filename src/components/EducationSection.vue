@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { GraduationCap, Award, Calendar, MapPin, Trophy, BookOpen } from 'lucide-vue-next'
+import { GraduationCap, Award, Calendar, MapPin, BookOpen } from 'lucide-vue-next'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const isVisible = ref(false)
@@ -51,15 +51,21 @@ const education = [
     icon: BookOpen,
     status: 'Complété',
   },
-]
-
-const certifications = [
   {
-    title: 'Postman Student Expert',
-    issuer: 'Postman',
-    icon: Trophy,
+    type: 'certification',
+    title: 'Postman Student Expert Certification',
+    institution: 'Postman',
+    period: '2025',
+    location: '',
+    description:
+      'Certification officielle Postman validant la maîtrise des API: requêtes, collections, variables, tests automatisés, documentation et workflows.',
+    skills: ['Postman', 'API Testing', 'Collections', 'Automatisation', 'Documentation API'],
+    icon: Award,
+    status: 'Complété',
   },
 ]
+
+// Section des certifications détachée supprimée pour intégrer Postman dans la timeline
 
 onMounted(() => {
   setTimeout(() => {
@@ -132,7 +138,7 @@ onMounted(() => {
             <!-- Carte de formation -->
             <div :class="['flex-1', index % 2 === 0 ? 'md:pr-20' : 'md:pl-20']">
               <div
-                class="card-pro relative h-full p-8 transition-all duration-300 hover:border-purple-500/50"
+                class="card-pro relative h-full p-3 sm:p-4 md:p-4 transition-all duration-300 hover:border-purple-500/50"
               >
                 <!-- Barre supérieure -->
                 <div
@@ -140,10 +146,10 @@ onMounted(() => {
                 ></div>
 
                 <!-- Badge type + statut -->
-                <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
                   <div class="flex items-center gap-3">
                     <span
-                      class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold border-2 border-purple-500/50 bg-purple-500/20 text-purple-300"
+                      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-bold border-2 border-purple-500/50 bg-purple-500/20 text-purple-300"
                     >
                       <Award v-if="item.type === 'certification'" :size="16" />
                       <GraduationCap v-else :size="16" />
@@ -152,7 +158,7 @@ onMounted(() => {
                   </div>
 
                   <span
-                    class="px-4 py-2 rounded-xl text-xs font-bold border-2"
+                    class="px-3 py-1.5 rounded-xl text-xs font-bold border-2"
                     :class="
                       item.status === 'En cours'
                         ? 'bg-green-500/20 text-green-300 border-green-500/50'
@@ -164,19 +170,19 @@ onMounted(() => {
                 </div>
 
                 <!-- Titre -->
-                <h3 class="font-display text-xl sm:text-2xl md:text-3xl font-black mb-4 text-white">
+                <h3 class="font-display text-xl sm:text-2xl md:text-3xl font-black mb-3 text-white">
                   {{ item.title }}
                 </h3>
 
                 <!-- Institution -->
                 <p
-                  class="text-base sm:text-lg font-bold mb-4 sm:mb-6 flex items-center gap-2 text-gray-300"
+                  class="text-base sm:text-lg font-bold mb-3 sm:mb-4 flex items-center gap-2 text-gray-300"
                 >
                   <BookOpen :size="18" class="sm:w-5 sm:h-5 text-purple-400" />
                   {{ item.institution }}
                 </p>
                 <!-- Métadonnées -->
-                <div class="flex flex-wrap gap-4 text-sm mb-6 text-gray-400">
+                <div class="flex flex-wrap gap-4 text-sm mb-4 text-gray-400">
                   <span class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-500/10">
                     <Calendar :size="16" class="text-purple-400" />
                     <span class="font-semibold">{{ item.period }}</span>
@@ -192,13 +198,13 @@ onMounted(() => {
 
                 <!-- Description -->
                 <p
-                  class="text-base leading-relaxed mb-6 border-l-4 border-purple-500 pl-4 italic text-gray-300"
+                  class="text-base leading-relaxed mb-4 border-l-4 border-purple-500 pl-3 italic text-gray-300"
                 >
                   {{ item.description }}
                 </p>
 
                 <!-- Compétences acquises -->
-                <div class="pt-6 border-t border-purple-500/30">
+                <div class="pt-4 border-t border-purple-500/30">
                   <p class="text-xs font-bold mb-3 uppercase tracking-wide text-gray-400">
                     Compétences acquises
                   </p>
@@ -206,7 +212,7 @@ onMounted(() => {
                     <span
                       v-for="skill in item.skills"
                       :key="skill"
-                      class="px-4 py-2 rounded-xl text-sm font-bold border-2 border-purple-500/50 bg-purple-500/20 text-purple-300 transition-all duration-300 hover:bg-purple-500/30"
+                      class="px-3 py-1.5 rounded-xl text-sm font-bold border-2 border-purple-500/50 bg-purple-500/20 text-purple-300 transition-all duration-300 hover:bg-purple-500/30"
                     >
                       {{ skill }}
                     </span>
@@ -221,41 +227,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Certifications additionnelles -->
-      <div
-        :class="['mt-24', isVisible ? 'animate-fadeInUp' : 'opacity-0']"
-        style="animation-delay: 0.8s"
-      >
-        <div class="text-center mb-12">
-          <div
-            class="inline-flex items-center gap-3 px-6 py-3 rounded-full border-2 border-purple-500/50 bg-purple-500/20"
-          >
-            <Trophy :size="24" class="text-purple-400" />
-            <h3 class="text-2xl font-black text-white">Autres Certifications</h3>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap justify-center gap-6">
-          <div
-            v-for="(cert, index) in certifications"
-            :key="index"
-            class="card-pro relative p-8 transition-all duration-300 hover:border-purple-500/50"
-          >
-            <div class="flex items-center gap-4">
-              <div class="p-4 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600">
-                <component :is="cert.icon" :size="32" class="text-white" />
-              </div>
-
-              <div>
-                <p class="font-display text-xl font-black mb-1 text-white">
-                  {{ cert.title }}
-                </p>
-                <p class="text-sm font-semibold text-gray-400">{{ cert.issuer }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Section des certifications supprimée -->
     </div>
   </section>
 </template>

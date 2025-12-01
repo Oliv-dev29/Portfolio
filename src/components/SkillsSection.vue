@@ -24,6 +24,18 @@ const webTechs = [
     name: 'CSS',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
   },
+  {
+    name: 'PHP',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg',
+  },
+  {
+    name: 'JavaScript',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+  },
+  {
+    name: 'Shell (sh)',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg',
+  },
 ]
 
 // Technologies Data & IA
@@ -209,36 +221,41 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-          <div
-            v-for="(tech, index) in webTechs"
-            :key="tech.name"
-            :class="['group perspective', isVisible ? 'animate-zoom-in' : 'opacity-0']"
-            :style="`animation-delay: ${0.3 + index * 0.05}s`"
-          >
+        <div class="overflow-x-auto pb-4 scrollbar-hide">
+          <div class="flex gap-5 min-w-max animate-scroll-x">
             <div
-              class="card-pro p-8 text-center cursor-pointer transition-all duration-500 transform-style-3d group-hover:rotate-y-180"
+              v-for="(tech, index) in webTechs"
+              :key="tech.name"
+              :class="[
+                'group perspective flex-shrink-0 w-40',
+                isVisible ? 'animate-zoom-in' : 'opacity-0',
+              ]"
+              :style="`animation-delay: ${0.3 + index * 0.05}s`"
             >
-              <!-- Face avant -->
-              <div class="backface-hidden">
-                <div class="flex items-center justify-center mb-5">
-                  <div class="relative w-16 h-16 flex items-center justify-center">
-                    <img :src="tech.icon" :alt="tech.name" class="w-14 h-14 object-contain" />
+              <div
+                class="card-pro p-6 text-center cursor-pointer transition-all duration-500 transform-style-3d group-hover:rotate-y-180"
+              >
+                <!-- Face avant -->
+                <div class="backface-hidden">
+                  <div class="flex items-center justify-center mb-4">
+                    <div class="relative w-14 h-14 flex items-center justify-center">
+                      <img :src="tech.icon" :alt="tech.name" class="w-12 h-12 object-contain" />
+                    </div>
+                  </div>
+
+                  <div class="text-sm font-semibold text-gray-300">
+                    {{ tech.name }}
                   </div>
                 </div>
 
-                <div class="text-base font-semibold text-gray-300">
-                  {{ tech.name }}
-                </div>
-              </div>
-
-              <!-- Face arrière -->
-              <div
-                class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center border border-blue-500/50"
-              >
-                <div class="text-center">
-                  <div class="text-blue-400 font-bold text-base mb-2">{{ tech.name }}</div>
-                  <div class="text-sm text-gray-400">Web Dev</div>
+                <!-- Face arrière -->
+                <div
+                  class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-6 flex items-center justify-center border border-blue-500/50"
+                >
+                  <div class="text-center">
+                    <div class="text-blue-400 font-bold text-sm mb-2">{{ tech.name }}</div>
+                    <div class="text-xs text-gray-400">Web Dev</div>
+                  </div>
                 </div>
               </div>
             </div>

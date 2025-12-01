@@ -58,7 +58,7 @@ onMounted(() => {
             :href="`https://docs.google.com/viewer?url=${encodeURIComponent(cvUrl)}&embedded=true`"
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative overflow-hidden px-12 py-6 rounded-2xl font-bold text-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-4 cursor-pointer"
+            class="group relative overflow-hidden px-10 py-5 rounded-2xl font-bold text-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-4 cursor-pointer"
           >
             <div
               class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"

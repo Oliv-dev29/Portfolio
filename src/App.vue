@@ -1,9 +1,13 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
+import { useTheme } from '@/composables/useTheme'
+
+const { initTheme } = useTheme()
 
 // Smooth scroll behavior for the whole page
 onMounted(() => {
   document.documentElement.style.scrollBehavior = 'smooth'
+  initTheme()
 })
 
 onUnmounted(() => {

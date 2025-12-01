@@ -1,13 +1,15 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Menu, X, Sparkles } from 'lucide-vue-next'
+import { Menu, X, Sparkles, Sun, Moon } from 'lucide-vue-next'
+import { useTheme } from '@/composables/useTheme'
+
+const { isDark, toggleTheme } = useTheme()
 
 const navLinks = [
   { id: 'about', label: 'Accueil' },
   { id: 'skills', label: 'Compétences' },
   { id: 'projects', label: 'Portfolios' },
   { id: 'experience', label: 'Expérience' },
-  { id: 'contact', label: 'Contact' },
 ]
 
 const isScrolled = ref(false)
@@ -113,6 +115,16 @@ onUnmounted(() => {
           >
             {{ link.label }}
           </button>
+
+          <!-- Bouton toggle thème -->
+          <button
+            @click="toggleTheme"
+            class="p-3 rounded-lg transition-all duration-300 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white"
+            title="Changer de thème"
+          >
+            <Sun v-if="isDark" :size="20" />
+            <Moon v-else :size="20" />
+          </button>
         </div>
 
         <!-- Bouton CTA -->
@@ -168,6 +180,16 @@ onUnmounted(() => {
 
           <button @click="scrollToSection('contact')" class="w-full mt-3 btn-primary text-base">
             Me contacter
+          </button>
+
+          <!-- Bouton toggle thème mobile -->
+          <button
+            @click="toggleTheme"
+            class="w-full mt-2 px-5 py-3 rounded-lg text-lg font-semibold transition-all duration-300 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white flex items-center justify-center gap-2"
+          >
+            <Sun v-if="isDark" :size="20" />
+            <Moon v-else :size="20" />
+            <span>{{ isDark ? 'Mode clair' : 'Mode sombre' }}</span>
           </button>
         </div>
       </div>

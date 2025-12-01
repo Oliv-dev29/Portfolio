@@ -1,15 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Linkedin,
-  Github,
-  Send,
-  MessageSquare,
-  Sparkles,
-} from 'lucide-vue-next'
+import { Mail, Phone, Linkedin, Github, Send, Sparkles } from 'lucide-vue-next'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const { element: sectionRef, isVisible: isInView } = useScrollAnimation(0.1)
@@ -106,7 +97,7 @@ const handleSubmit = async () => {
             <div
               v-for="info in contactInfo"
               :key="info.label"
-              class="card-pro p-6 sm:p-8 group cursor-pointer hover:border-blue-500/50"
+              class="card-pro p-5 sm:p-6 group cursor-pointer hover:border-blue-500/50"
             >
               <div class="flex items-start gap-5">
                 <div
@@ -135,7 +126,7 @@ const handleSubmit = async () => {
           </div>
 
           <!-- Social Links -->
-          <div class="card-pro p-6 sm:p-8">
+          <div class="card-pro p-5 sm:p-6">
             <h3 class="font-display text-2xl font-bold text-white mb-6 flex items-center gap-2">
               <Sparkles :size="24" class="text-blue-400" />
               Réseaux sociaux
@@ -176,15 +167,15 @@ const handleSubmit = async () => {
 
         <!-- Form - 3 colonnes -->
         <div class="lg:col-span-3">
-          <div class="card-pro p-8 sm:p-10 lg:p-12">
-            <h3 class="font-display text-3xl sm:text-4xl font-bold text-white mb-8">
+          <div class="card-pro p-4 sm:p-5 lg:p-6">
+            <h3 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
               Envoyez un message
             </h3>
 
-            <form @submit.prevent="handleSubmit" class="space-y-6">
-              <div class="grid sm:grid-cols-2 gap-6">
+            <form @submit.prevent="handleSubmit" class="space-y-4">
+              <div class="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label for="name" class="block text-base font-semibold text-white mb-3">
+                  <label for="name" class="block text-base font-semibold text-white mb-2">
                     Votre nom
                   </label>
                   <input
@@ -192,13 +183,13 @@ const handleSubmit = async () => {
                     v-model="formData.name"
                     type="text"
                     required
-                    class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    class="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="John Doe"
                   />
                 </div>
 
                 <div>
-                  <label for="email" class="block text-base font-semibold text-white mb-3">
+                  <label for="email" class="block text-base font-semibold text-white mb-2">
                     Email
                   </label>
                   <input
@@ -206,14 +197,14 @@ const handleSubmit = async () => {
                     v-model="formData.email"
                     type="email"
                     required
-                    class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    class="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="john@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label for="subject" class="block text-base font-semibold text-white mb-3">
+                <label for="subject" class="block text-base font-semibold text-white mb-2">
                   Sujet
                 </label>
                 <input
@@ -221,13 +212,13 @@ const handleSubmit = async () => {
                   v-model="formData.subject"
                   type="text"
                   required
-                  class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  class="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                   placeholder="De quoi souhaitez-vous parler ?"
                 />
               </div>
 
               <div>
-                <label for="message" class="block text-base font-semibold text-white mb-3">
+                <label for="message" class="block text-base font-semibold text-white mb-2">
                   Message
                 </label>
                 <textarea
@@ -235,7 +226,7 @@ const handleSubmit = async () => {
                   v-model="formData.message"
                   required
                   rows="6"
-                  class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                  class="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
                   placeholder="Décrivez votre portfolio ou votre demande..."
                 ></textarea>
               </div>
@@ -243,10 +234,10 @@ const handleSubmit = async () => {
               <button
                 type="submit"
                 :disabled="isSubmitting"
-                class="w-full btn-primary text-lg group"
+                class="w-full btn-primary text-base px-6 py-3 group"
               >
                 <Send
-                  :size="24"
+                  :size="20"
                   class="inline-block group-hover:translate-x-1 transition-transform"
                 />
                 <span class="ml-2">{{
